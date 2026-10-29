@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pawfacts/core/router/app_router.dart';
 
 void main() {
-  runApp(const PawFactsApp());
+  runApp(ProviderScope(child: const PawFactsApp()));
 }
 
 class PawFactsApp extends StatelessWidget {
