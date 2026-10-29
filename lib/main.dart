@@ -15,10 +15,6 @@ class PawFactsApp extends StatelessWidget {
       title: 'PawFacts',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
     );
   }
 }
