@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:pawfacts/core/router/app_router.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const PawFactsApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class PawFactsApp extends StatelessWidget {
+  const PawFactsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp.router(
+      title: 'PawFacts',
+      debugShowCheckedModeBanner: false,
+      routerConfig: appRouter,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
     );
   }
 }
