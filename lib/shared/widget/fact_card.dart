@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/theme/app_theme.dart';
 
@@ -28,9 +30,9 @@ class FactCard extends StatelessWidget {
           Text(
             fact,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: GoogleFonts.nunito(
               fontSize: 18,
-              height: 1.7,
+              height: 1.5,
               fontWeight: FontWeight.w500,
               color: AppTheme.text,
             ),

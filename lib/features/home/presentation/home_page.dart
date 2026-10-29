@@ -20,11 +20,15 @@ class HomePage extends StatelessWidget {
               Center(
                 child: Text(
                   'What animal you want to know about?',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.text,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               Expanded(
                 child: Column(
                   children: [

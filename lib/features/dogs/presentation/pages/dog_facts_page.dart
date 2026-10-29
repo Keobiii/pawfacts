@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_theme.dart';
+import '../../../../shared/widget/fact_card.dart';
 import '../providers/dog_fact_provider.dart';
+
+// Keep your existing import for dogFactNotifierProvider.
 
 class DogFactsPage extends ConsumerWidget {
   const DogFactsPage({super.key});
@@ -10,54 +14,137 @@ class DogFactsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dogFactState = ref.watch(dogFactNotifierProvider);
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
-        ),
-        title: const Text('Dog Facts 🐶'),
-      ),
-      body: Center(
-        child: dogFactState.when(
-          loading: () => const CircularProgressIndicator(),
-          error: (error, stackTrace) => Column(
+      backgroundColor: AppTheme.background,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text('Failed to load dog fact.'),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(dogFactNotifierProvider.notifier).fetchRandonFacts();
-                },
-                child: const Text('Try Again'),
+              // Header
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => context.go('/'),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                    style: IconButton.styleFrom(
+                      backgroundColor: AppTheme.secondaryBg,
+                      foregroundColor: AppTheme.text,
+                      side: BorderSide(color: AppTheme.border),
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    'DOG FACTS',
+                    style: textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                      color: AppTheme.text,
+                    ),
+                  ),
+                  const Spacer(),
+                  const SizedBox(width: 48),
+                ],
+              ),
+
+              const SizedBox(height: 32),
+
+              // Title
+              Text(
+                'Did you know?',
+                textAlign: TextAlign.center,
+                style: textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: AppTheme.text,
+                  height: 1.2,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                'Discover something amazing about dogs.',
+                textAlign: TextAlign.center,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: AppTheme.secondaryText,
+                  height: 1.5,
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Fact content
+              Expanded(
+                child: Center(
+                  child: dogFactState.when(
+                    loading: () =>
+                        CircularProgressIndicator(color: AppTheme.text),
+                    error: (error, stackTrace) => Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.error_outline_rounded,
+                          size: 48,
+                          color: Colors.redAccent,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Failed to load dog fact.',
+                          textAlign: TextAlign.center,
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: AppTheme.text,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () {
+                            ref
+                                .read(dogFactNotifierProvider.notifier)
+                                .fetchRandonFacts();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.secondaryBg,
+                            foregroundColor: AppTheme.text,
+                          ),
+                          child: const Text('Try Again'),
+                        ),
+                      ],
+                    ),
+                    data: (fact) =>
+                        SingleChildScrollView(child: FactCard(fact: fact.fact)),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Bottom buttons
+              SizedBox(
+                height: 50,
+                child: Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      ref
+                          .read(dogFactNotifierProvider.notifier)
+                          .fetchRandonFacts();
+                    },
+                    label: const Text('Next Fact'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.secondaryBg,
+                      foregroundColor: AppTheme.text,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        side: BorderSide(color: AppTheme.border, width: 1.5),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
-          ),
-          data: (fact) => Padding(
-            padding: const EdgeInsetsGeometry.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.pets, size: 64),
-                const SizedBox(height: 20),
-                Text(
-                  fact.fact,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 18, height: 1.5),
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    ref
-                        .read(dogFactNotifierProvider.notifier)
-                        .fetchRandonFacts();
-                  },
-                  icon: const Icon(Icons.refresh),
-                  label: const Text('Get Another Fact'),
-                ),
-              ],
-            ),
           ),
         ),
       ),

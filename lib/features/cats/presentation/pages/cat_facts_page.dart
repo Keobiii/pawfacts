@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widget/fact_card.dart';
@@ -20,73 +21,109 @@ class CatFactsPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Center(
-                child: Text(
-                  'Did you know?',
-                  style: textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.text,
+              // Header
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => context.go('/'),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                    style: IconButton.styleFrom(
+                      backgroundColor: AppTheme.secondaryBg,
+                      foregroundColor: AppTheme.text,
+                      side: BorderSide(color: AppTheme.border),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  const Spacer(),
+                  Text(
+                    'CAT FACTS',
+                    style: GoogleFonts.nunito(
+                      fontSize: 16,
+                      height: 1.5,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.text,
+                    ),
+                  ),
+                  const Spacer(),
+                  const SizedBox(width: 48),
+                ],
               ),
 
               const SizedBox(height: 32),
 
-              const Expanded(
+              // Fact card
+              Expanded(
                 child: Center(
-                  child: SingleChildScrollView(
-                    child: FactCard(
-                      fact:
-                          'Cats can rotate their ears up to 180 degrees '
-                          'to locate sounds around them.',
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      // Page title
+                      Text(
+                        'Did you know?',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(
+                          fontSize: 22,
+                          height: 1.2,
+                          fontWeight: FontWeight.w900,
+                          color: AppTheme.text,
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        'Discover something amazing about cats.',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(
+                          fontSize: 16,
+                          height: 1.5,
+                          fontWeight: FontWeight.w500,
+                          color: AppTheme.text,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      const FactCard(
+                        fact:
+                            'Cats can rotate their ears up to 180 degrees '
+                            'to locate sounds around them.',
+                      ),
+                    ],
                   ),
                 ),
               ),
 
               const SizedBox(height: 24),
 
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () => context.go('/'),
-                      label: const Text('Back'),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppTheme.text,
-                        side: BorderSide(color: AppTheme.border, width: 1),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+              // Navigation buttons
+              SizedBox(
+                height: 50,
+                child: Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      // TODO: Load the next cat fact
+                    },
+                    label: Text(
+                      'Next Fact',
+                      style: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.text,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.secondaryBg,
+                      foregroundColor: AppTheme.text,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        side: BorderSide(color: AppTheme.border, width: 1.5),
                       ),
                     ),
                   ),
-
-                  const SizedBox(width: 16),
-
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        // TODO: Load the next cat fact
-                      },
-                      label: const Text('Next Fact'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.secondaryBg,
-                        foregroundColor: AppTheme.text,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(color: AppTheme.border, width: 1),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
