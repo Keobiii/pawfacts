@@ -15,7 +15,7 @@ class DogFactNotifier extends AsyncNotifier<DogFact> {
     return _getRandomDogFact();
   }
 
-  Future<void> fetchRandonFacts() async {
+  Future<void> fetchRandonFact() async {
     state = const AsyncLoading();
 
     state = await AsyncValue.guard(() => _getRandomDogFact());

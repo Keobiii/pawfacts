@@ -6,8 +6,6 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widget/fact_card.dart';
 import '../providers/dog_fact_provider.dart';
 
-// Keep your existing import for dogFactNotifierProvider.
-
 class DogFactsPage extends ConsumerWidget {
   const DogFactsPage({super.key});
 
@@ -103,7 +101,7 @@ class DogFactsPage extends ConsumerWidget {
                           onPressed: () {
                             ref
                                 .read(dogFactNotifierProvider.notifier)
-                                .fetchRandonFacts();
+                                .fetchRandonFact();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppTheme.secondaryBg,
@@ -124,22 +122,20 @@ class DogFactsPage extends ConsumerWidget {
               // Bottom buttons
               SizedBox(
                 height: 50,
-                child: Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      ref
-                          .read(dogFactNotifierProvider.notifier)
-                          .fetchRandonFacts();
-                    },
-                    label: const Text('Next Fact'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.secondaryBg,
-                      foregroundColor: AppTheme.text,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                        side: BorderSide(color: AppTheme.border, width: 1.5),
-                      ),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    ref
+                        .read(dogFactNotifierProvider.notifier)
+                        .fetchRandonFact();
+                  },
+                  label: const Text('Next Fact'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.secondaryBg,
+                    foregroundColor: AppTheme.text,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: BorderSide(color: AppTheme.border, width: 1.5),
                     ),
                   ),
                 ),

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pawfacts/features/cats/presentation/providers/cat_fact_provider.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widget/fact_card.dart';
 
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-class CatFactsPage extends StatelessWidget {
+class CatFactsPage extends ConsumerWidget {
   const CatFactsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final catFactState = ref.watch(catFactNotifierProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -38,10 +37,9 @@ class CatFactsPage extends StatelessWidget {
                   const Spacer(),
                   Text(
                     'CAT FACTS',
-                    style: GoogleFonts.nunito(
-                      fontSize: 16,
-                      height: 1.5,
-                      fontWeight: FontWeight.w700,
+                    style: textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
                       color: AppTheme.text,
                     ),
                   ),
@@ -52,75 +50,92 @@ class CatFactsPage extends StatelessWidget {
 
               const SizedBox(height: 32),
 
-              // Fact card
+              // Title
+              Text(
+                'Did you know?',
+                textAlign: TextAlign.center,
+                style: textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: AppTheme.text,
+                  height: 1.2,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                'Discover something amazing about cats.',
+                textAlign: TextAlign.center,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: AppTheme.secondaryText,
+                  height: 1.5,
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Fact content
               Expanded(
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // Page title
-                      Text(
-                        'Did you know?',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.nunito(
-                          fontSize: 22,
-                          height: 1.2,
-                          fontWeight: FontWeight.w900,
-                          color: AppTheme.text,
+                  child: catFactState.when(
+                    loading: () =>
+                        CircularProgressIndicator(color: AppTheme.text),
+                    error: (error, stackTrace) => Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.error_outline_rounded,
+                          size: 48,
+                          color: Colors.redAccent,
                         ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      Text(
-                        'Discover something amazing about cats.',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.nunito(
-                          fontSize: 16,
-                          height: 1.5,
-                          fontWeight: FontWeight.w500,
-                          color: AppTheme.text,
+                        const SizedBox(height: 16),
+                        Text(
+                          'Failed to load cat fact.',
+                          textAlign: TextAlign.center,
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: AppTheme.text,
+                          ),
                         ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      const FactCard(
-                        fact:
-                            'Cats can rotate their ears up to 180 degrees '
-                            'to locate sounds around them.',
-                      ),
-                    ],
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () {
+                            ref
+                                .read(catFactNotifierProvider.notifier)
+                                .fetchRandomFact();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.secondaryBg,
+                            foregroundColor: AppTheme.text,
+                          ),
+                          child: const Text('Try Again'),
+                        ),
+                      ],
+                    ),
+                    data: (fact) =>
+                        SingleChildScrollView(child: FactCard(fact: fact.fact)),
                   ),
                 ),
               ),
 
               const SizedBox(height: 24),
 
-              // Navigation buttons
+              // Bottom buttons
               SizedBox(
                 height: 50,
-                child: Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // TODO: Load the next cat fact
-                    },
-                    label: Text(
-                      'Next Fact',
-                      style: GoogleFonts.nunito(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.text,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.secondaryBg,
-                      foregroundColor: AppTheme.text,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                        side: BorderSide(color: AppTheme.border, width: 1.5),
-                      ),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    ref
+                        .read(catFactNotifierProvider.notifier)
+                        .fetchRandomFact();
+                  },
+                  label: const Text('Next Fact'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.secondaryBg,
+                    foregroundColor: AppTheme.text,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: BorderSide(color: AppTheme.border, width: 1.5),
                     ),
                   ),
                 ),
