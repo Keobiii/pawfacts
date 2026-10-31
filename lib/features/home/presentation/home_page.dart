@@ -53,6 +53,12 @@ class HomePage extends StatelessWidget {
                       icon: 'assets/icons/cat_icon.png',
                       onTap: () => context.go('/cats'),
                     ),
+                    const SizedBox(height: 16),
+                    AnimalCard(
+                      title: 'Koala',
+                      icon: 'assets/icons/koala_icon.png',
+                      onTap: () => context.go('/koalas'),
+                    ),
                   ],
                 ),
               ),

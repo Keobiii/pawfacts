@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pawfacts/features/cats/presentation/pages/cat_facts_page.dart';
 import 'package:pawfacts/features/dogs/presentation/pages/dog_facts_page.dart';
 import 'package:pawfacts/features/home/presentation/home_page.dart';
+import 'package:pawfacts/features/koala/presentation/pages/koala_facts_page.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -9,5 +10,9 @@ final appRouter = GoRouter(
     GoRoute(path: '/', builder: (context, state) => const HomePage()),
     GoRoute(path: '/dogs', builder: (context, state) => const DogFactsPage()),
     GoRoute(path: '/cats', builder: (context, state) => const CatFactsPage()),
+    GoRoute(
+      path: '/koalas',
+      builder: (context, state) => const KoalaFactsPage(),
+    ),
   ],
 );
