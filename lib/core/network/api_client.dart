@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 
-class DogApiClient {
-  DogApiClient()
+class ApiClient {
+  ApiClient()
     : _dio = Dio(
         BaseOptions(
-          baseUrl: 'https://dogapi.dog/api/v2',
+          baseUrl: 'https://api.some-random-api.com',
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
           headers: {'Accept': 'application/json'},
@@ -13,8 +13,8 @@ class DogApiClient {
 
   final Dio _dio;
 
-  Future<Map<String, dynamic>> getRandomFact() async {
-    final response = await _dio.get('/facts', queryParameters: {'limit': 1});
+  Future<Map<String, dynamic>> get(String endpoint) async {
+    final response = await _dio.get(endpoint);
 
     return Map<String, dynamic>.from(response.data);
   }
