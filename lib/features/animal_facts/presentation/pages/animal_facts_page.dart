@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widget/fact_card.dart';
@@ -89,8 +90,12 @@ class AnimalFactsPage extends ConsumerWidget {
               Expanded(
                 child: Center(
                   child: factState.when(
-                    loading: () =>
-                        CircularProgressIndicator(color: AppTheme.text),
+                    loading: () => Lottie.asset(
+                      'assets/animations/loading_animation.json',
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.contain,
+                    ),
                     error: (error, stackTrace) => Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
