@@ -20,7 +20,8 @@ class DogFactsPage extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // Header
               Row(
@@ -75,53 +76,51 @@ class DogFactsPage extends ConsumerWidget {
               const SizedBox(height: 24),
 
               // Fact content
-              Expanded(
-                child: Center(
-                  child: dogFactState.when(
-                    loading: () =>
-                        CircularProgressIndicator(color: AppTheme.text),
-                    error: (error, stackTrace) => Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.error_outline_rounded,
-                          size: 48,
-                          color: Colors.redAccent,
+              Center(
+                child: dogFactState.when(
+                  loading: () =>
+                      CircularProgressIndicator(color: AppTheme.text),
+                  error: (error, stackTrace) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.error_outline_rounded,
+                        size: 48,
+                        color: Colors.redAccent,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Failed to load dog fact.',
+                        textAlign: TextAlign.center,
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: AppTheme.text,
                         ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Failed to load dog fact.',
-                          textAlign: TextAlign.center,
-                          style: textTheme.bodyLarge?.copyWith(
-                            color: AppTheme.text,
-                          ),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          ref
+                              .read(dogFactNotifierProvider.notifier)
+                              .fetchRandonFact();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppTheme.secondaryBg,
+                          foregroundColor: AppTheme.text,
                         ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () {
-                            ref
-                                .read(dogFactNotifierProvider.notifier)
-                                .fetchRandonFact();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppTheme.secondaryBg,
-                            foregroundColor: AppTheme.text,
-                          ),
-                          child: const Text('Try Again'),
-                        ),
-                      ],
-                    ),
-                    data: (fact) =>
-                        SingleChildScrollView(child: FactCard(fact: fact.fact)),
+                        child: const Text('Try Again'),
+                      ),
+                    ],
                   ),
+                  data: (fact) =>
+                      SingleChildScrollView(child: FactCard(fact: fact.fact)),
                 ),
               ),
 
-              const SizedBox(height: 24),
-
+              Spacer(),
               // Bottom buttons
               SizedBox(
                 height: 50,
+                width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () {
                     ref
