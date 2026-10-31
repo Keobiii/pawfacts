@@ -11,7 +11,7 @@ class KoalaFactsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final koalaFactState = ref.watch(koalaFactNotifierProvider);
+    final koalaFactState = ref.watch(koalaFactProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -100,7 +100,7 @@ class KoalaFactsPage extends ConsumerWidget {
                       ElevatedButton(
                         onPressed: () {
                           ref
-                              .read(koalaFactNotifierProvider.notifier)
+                              .read(koalaFactProvider.notifier)
                               .fetchRandomFact();
                         },
                         style: ElevatedButton.styleFrom(
@@ -123,9 +123,7 @@ class KoalaFactsPage extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    ref
-                        .read(koalaFactNotifierProvider.notifier)
-                        .fetchRandomFact();
+                    ref.read(koalaFactProvider.notifier).fetchRandomFact();
                   },
                   label: const Text('Next Fact'),
                   style: ElevatedButton.styleFrom(

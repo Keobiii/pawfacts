@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pawfacts/features/dogs/domain/entities/dog_fact.dart';
-import 'package:pawfacts/features/dogs/presentation/notifiers/dog_fact_notifier.dart';
+import 'package:pawfacts/features/animal_facts/domain/entities/animal_type.dart';
+import 'package:pawfacts/features/animal_facts/presentation/providers/animal_fact_notifier_provider.dart';
 
-final dogFactNotifierProvider = AsyncNotifierProvider<DogFactNotifier, DogFact>(
-  DogFactNotifier.new,
-);
+final dogFactProvider = animalFactNotifierProvider(AnimalType.dog);

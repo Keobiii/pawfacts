@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pawfacts/features/cats/domain/entities/cat_fact.dart';
-import 'package:pawfacts/features/cats/presentation/notifiers/cat_fact_notifier.dart';
+import 'package:pawfacts/features/animal_facts/domain/entities/animal_type.dart';
+import 'package:pawfacts/features/animal_facts/presentation/providers/animal_fact_notifier_provider.dart';
 
-final catFactNotifierProvider = AsyncNotifierProvider<CatFactNotifier, CatFact>(
-  CatFactNotifier.new,
-);
+final catFactProvider = animalFactNotifierProvider(AnimalType.cat);

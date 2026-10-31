@@ -1,6 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pawfacts/features/koala/domain/entities/koala_fact.dart';
-import 'package:pawfacts/features/koala/presentation/notifiers/koala_fact_notifier.dart';
+import 'package:pawfacts/features/animal_facts/domain/entities/animal_type.dart';
+import 'package:pawfacts/features/animal_facts/presentation/providers/animal_fact_notifier_provider.dart';
 
-final koalaFactNotifierProvider =
-    AsyncNotifierProvider<KoalaFactNotifier, KoalaFact>(KoalaFactNotifier.new);
+final koalaFactProvider = animalFactNotifierProvider(AnimalType.koala);

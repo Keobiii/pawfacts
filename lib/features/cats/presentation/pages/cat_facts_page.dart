@@ -11,7 +11,7 @@ class CatFactsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final catFactState = ref.watch(catFactNotifierProvider);
+    final catFactState = ref.watch(catFactProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -99,9 +99,7 @@ class CatFactsPage extends ConsumerWidget {
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
-                          ref
-                              .read(catFactNotifierProvider.notifier)
-                              .fetchRandomFact();
+                          ref.read(catFactProvider.notifier).fetchRandomFact();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.secondaryBg,
@@ -123,9 +121,7 @@ class CatFactsPage extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    ref
-                        .read(catFactNotifierProvider.notifier)
-                        .fetchRandomFact();
+                    ref.read(catFactProvider.notifier).fetchRandomFact();
                   },
                   label: const Text('Next Fact'),
                   style: ElevatedButton.styleFrom(

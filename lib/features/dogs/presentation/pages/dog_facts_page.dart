@@ -11,7 +11,7 @@ class DogFactsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dogFactState = ref.watch(dogFactNotifierProvider);
+    final dogFactState = ref.watch(dogFactProvider);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -99,9 +99,7 @@ class DogFactsPage extends ConsumerWidget {
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
-                          ref
-                              .read(dogFactNotifierProvider.notifier)
-                              .fetchRandonFact();
+                          ref.read(dogFactProvider.notifier).fetchRandomFact();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.secondaryBg,
@@ -123,9 +121,7 @@ class DogFactsPage extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    ref
-                        .read(dogFactNotifierProvider.notifier)
-                        .fetchRandonFact();
+                    ref.read(dogFactProvider.notifier).fetchRandomFact();
                   },
                   label: const Text('Next Fact'),
                   style: ElevatedButton.styleFrom(
