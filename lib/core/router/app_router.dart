@@ -7,13 +7,15 @@ import 'package:pawfacts/features/giraffe/presentation/pages/giraffe_facts_page.
 import 'package:pawfacts/features/home/presentation/pages/home_page.dart';
 import 'package:pawfacts/features/koala/presentation/pages/koala_facts_page.dart';
 import 'package:pawfacts/features/raccoon/presentation/pages/raccoon_facts_page.dart';
+import 'package:pawfacts/features/splash/presentation/pages/splash_page.dart';
 
 import '../../features/panda/presentation/pages/panda_facts_page.dart';
 import '../../features/whale/presentation/pages/whale_facts_page.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(path: '/splash', builder: (context, state) => const SplashPage()),
     GoRoute(path: '/', builder: (context, state) => const HomePage()),
     GoRoute(path: '/dogs', builder: (context, state) => const DogFactsPage()),
     GoRoute(path: '/cats', builder: (context, state) => const CatFactsPage()),
