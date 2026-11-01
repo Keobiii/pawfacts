@@ -50,7 +50,8 @@ class _SplashPageState extends State<SplashPage> {
               ),
               Text(
                 'PawFacts',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                style: const TextStyle(
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: AppTheme.text,
                 ),
@@ -58,8 +59,10 @@ class _SplashPageState extends State<SplashPage> {
               const SizedBox(height: 8),
               Text(
                 'Discover amazing animal facts!',
-                style: Theme.of(context).textTheme.bodyMedium
-                    ?.copyWith(color: AppTheme.secondaryText),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: AppTheme.secondaryText,
+                ),
               ),
             ],
           ),

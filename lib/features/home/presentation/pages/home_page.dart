@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
                 child: Text(
                   'What animal you want to know about?',
                   style: const TextStyle(
-                    fontSize: 28,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: AppTheme.text,
                   ),
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                 'List of Animals',
                 style: TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color: AppTheme.text,
                 ),
                 textAlign: TextAlign.center,

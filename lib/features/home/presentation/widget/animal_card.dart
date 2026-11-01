@@ -8,6 +8,7 @@ class AnimalCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const AnimalCard({
+    super.key,
     required this.title,
     required this.icon,
     required this.onTap,
@@ -15,27 +16,32 @@ class AnimalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppTheme.secondaryBg,
-          border: BoxBorder.all(color: AppTheme.border, width: 2),
-          borderRadius: BorderRadius.circular(20),
-        ),
+    return Material(
+      color: AppTheme.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: AppTheme.border, width: 2),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
+        hoverColor: AppTheme.secondaryBg,
+        highlightColor: AppTheme.secondaryBg,
+        splashColor: AppTheme.secondaryBg,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
               Container(
-                width: 48,
-                height: 48,
+                width: 45,
+                height: 45,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(3),
                   child: Image.asset(icon, fit: BoxFit.cover),
                 ),
               ),
@@ -46,7 +52,7 @@ class AnimalCard extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
